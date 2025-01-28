@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore - Crypto Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+      <style>
+       .explore-content{
+            display: flex;
+            flex-direction: column;
+             align-items: center;
+        }
+    .explore-content .container {
+        max-width: 1000px;
+        padding: 20px;
+         }
+       .explore-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #57d9a3;
+        }
+       .explore-content p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #e0e0e0;
+            margin-top: 20px;
+            text-align: justify;
+        }
+        .explore-content ul {
+           list-style: square;
+            margin-top: 20px;
+           margin-left: 20px;
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+     .explore-content ul li {
+             margin-bottom: 10px;
+        }
+     </style>
+</head>
+<body>
+     <div id="custom-cursor"></div>
+    <header>
+        <div class="container">
+            <h1 class="logo"><a href="index.html">CryptoSpace</a></h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="#" class="active">Explore</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h2 class="hero-title">Explore Cryptocurrencies</h2>
+                <p class="hero-subtitle">Discover various cryptocurrencies and their details.</p>
+                 <div id="particle-container"></div>
+            </div>
+        </section>
+
+        <section class="explore-content">
+            <div class="container">
+              <h2>What can you explore?</h2>
+                <p>Welcome to the Explore section of CryptoSpace! Here, you'll dive into the world of cryptocurrencies. Get ready to explore a wide range of digital assets, understand the technologies behind them, and stay up-to-date with market trends and developments.</p>
+                <ul>
+                  <li><b>Extensive List:</b> Browse through our top 30 cryptocurrencies and select one to dive into a full details page about it</li>
+                  <li><b>Live Data:</b> See the latest data with price changes in real time</li>
+                    <li><b>Advanced Charts:</b> Explore the charts of each cryptocurrency with different timeframes</li>
+                 </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2025 Crypto Dashboard. All rights reserved.</p>
+        </div>
+    </footer>
+ <script>
+   // Custom Cursor
+const cursor = document.getElementById('custom-cursor');
+let cursorX = 0;
+let cursorY = 0;
+let mouseX = 0;
+let mouseY = 0;
+const speed = 0.075; // Lower value for slower movement
+
+document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+});
+
+function updateCursorPosition() {
+    const distX = mouseX - cursorX;
+    const distY = mouseY - cursorY;
+
+    cursorX += distX * speed;
+    cursorY += distY * speed;
+
+    cursor.style.left = cursorX + 'px';
+    cursor.style.top = cursorY + 'px';
+
+    requestAnimationFrame(updateCursorPosition);
+}
+
+document.addEventListener('mouseover', () => {
+    document.body.classList.add('active-cursor');
+});
+
+document.addEventListener('mouseout', () => {
+    document.body.classList.remove('active-cursor');
+});
+ updateCursorPosition();
+   // Create background particles
+    function createParticle() {
+    const particle = document.createElement('div');
+    particle.classList.add('particle');
+    resetParticle(particle);
+    return particle;
+}
+
+function resetParticle(particle) {
+    const size = Math.random() * 6 + 2; /*Increased size for visibility*/
+    const x = Math.random() * window.innerWidth;
+    const y = Math.random() * window.innerHeight;
+    const duration = Math.random() * 6 + 4;
+    const delay = Math.random() * 4;
+  
+      particle.style.width = `${size}px`;
+    particle.style.height = `${size}px`;
+    particle.style.left = `${x}px`;
+    particle.style.top = `${y}px`;
+    particle.style.opacity = 0;
+    particle.style.animation = `floatAndFade ${duration}s linear ${delay}s infinite`;
+
+    // Reset position after animation ends
+    setTimeout(() => {
+        resetParticle(particle);
+    }, duration * 1000 + delay * 1000);
+}
+
+function createParticles() {
+    const particleContainer = document.getElementById('particle-container');
+    const numParticles = 50;
+
+    for (let i = 0; i < numParticles; i++) {
+        const particle = createParticle();
+        particleContainer.appendChild(particle);
+    }
+}
+     createParticles();
+ </script>
+</body>
+</html>

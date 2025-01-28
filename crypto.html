@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Details</title>
+    <link rel="stylesheet" href="styles.css">
+       <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+        <style>
+        body {
+            overflow-x: hidden;
+        }
+        /* Additional styles specific to crypto.html */
+        .crypto-details {
+            padding: 80px 20px 20px;
+            margin-top: 64px; /* Adjust for fixed header */
+            display: flex; /* Make the details page flexible */
+            flex-direction: column;
+        }
+        .crypto-details .container { /* Makes it fill the page */
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+         .crypto-details h2 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #57d9a3;
+             width: 100%; /* Make h2 full width */
+           text-align: center;
+        }
+        .crypto-details .symbol {
+            font-size: 1.2rem;
+            color: #8b949e;
+            margin-left: 10px;
+        }
+        .crypto-details .price {
+            font-size: 2rem;
+            margin-top: 10px;
+             width: 100%; /* Make it full width */
+            text-align: center;
+        }
+        .crypto-details .price-change {
+            font-size: 1.2rem;
+            margin-left: 10px;
+        }
+        .crypto-details .price-change.positive {
+            color: #57d9a3;
+        }
+        .crypto-details .price-change.negative {
+            color: #e54d42;
+        }
+         .crypto-details .chart-container {
+            width: 100%;
+            height: 500px;
+            margin-top: 30px;
+             background-color: #05080f; /* Set the chart container background to black */
+            align-self: center; /* Center the chart */
+        }
+        .crypto-details .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .crypto-details .stat-item {
+            background-color: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 10px;
+            padding: 20px;
+        }
+        .crypto-details .stat-label {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #8b949e;
+        }
+        .crypto-details .stat-value {
+            font-size: 1.1rem;
+        }
+        #chart-container {
+             background-color: #05080f;  /* Set background color directly */
+        }
+
+        .crypto-details-content {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            width: 100%;
+            margin-top: 20px;
+            max-width: 1000px; /* Limit width for better readability */
+            align-self: center;  /* Center the content */
+        }
+        .crypto-details-row {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .crypto-details-column {
+            flex: 1;
+            margin-right: 20px;
+        }
+        .crypto-details-header {
+            font-size: 1.5rem;
+            color: #57d9a3;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #57d9a3;
+            padding-bottom: 5px;
+        }
+        .crypto-details-column:last-child {
+            margin-right: 0;
+        }
+        .detail-box {
+            background-color: rgba(18, 23, 37, 0.95);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(87, 217, 163, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+        }
+        .detail-label {
+            color: #8b949e;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+        .detail-value {
+            color: #e0e0e0;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        .crypto-links {
+            margin-top: 20px;
+            width: 100%;
+        }
+        .crypto-links a {
+            display: inline-block;
+            margin-right: 20px;
+            padding: 10px 20px;
+            background-color: #57d9a3;
+            color: #05080f;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        .crypto-links a:hover {
+            background-color: #46b386;
+        }
+        .crypto-description {
+            margin-top: 20px;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #e0e0e0;
+            max-width: 1000px; /* Add a max width */
+            align-self: center;  /* Center the content */
+        }
+        .additional-info {
+            margin-top: 30px;
+            width: 100%;
+             max-width: 1000px; /* Add a max width */
+              align-self: center;  /* Center the content */
+        }
+        .additional-info h3 {
+            font-size: 1.5rem;
+            color: #57d9a3;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #57d9a3;
+            padding-bottom: 5px;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        .info-item {
+            background-color: rgba(18, 23, 37, 0.95);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(87, 217, 163, 0.2);
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+        }
+        .info-label {
+            font-size: 1rem;
+            color: #8b949e;
+            margin-bottom: 5px;
+        }
+        .info-value {
+            font-size: 1.1rem;
+            color: #e0e0e0;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+      <div id="custom-cursor"></div>
+    <header>
+        <div class="container">
+            <h1 class="logo"><a href="index.html">CryptoSpace</a></h1>
+           <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="explore.html">Explore</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="crypto-details">
+        <div class="container">
+            <h2 id="crypto-name"></h2>
+            <p class="price" id="crypto-price"></p>
+            <div class="chart-container" id="chart-container"></div>
+            <div class="crypto-details-content">
+                <div class="crypto-details-row">
+                    <div class="crypto-details-column">
+                        <div class="detail-box">
+                            <div class="detail-label">Market Cap:</div>
+                            <div class="detail-value" id="market-cap"></div>
+                        </div>
+                        <div class="detail-box">
+                            <div class="detail-label">24h High:</div>
+                            <div class="detail-value" id="high-24h"></div>
+                        </div>
+                        <div class="detail-box">
+                            <div class="detail-label">24h Low:</div>
+                            <div class="detail-value" id="low-24h"></div>
+                        </div>
+                         <div class="detail-box">
+                            <div class="detail-label">Circulating Supply:</div>
+                            <div class="detail-value" id="circulating-supply"></div>
+                        </div>
+                    </div>
+    
+                    <div class="crypto-details-column">
+                         <div class="detail-box">
+                            <div class="detail-label">Total Supply:</div>
+                            <div class="detail-value" id="total-supply"></div>
+                        </div>
+                         <div class="detail-box">
+                            <div class="detail-label">Volume 24h:</div>
+                            <div class="detail-value" id="volume-24h"></div>
+                        </div>
+                        <div class="detail-box">
+                            <div class="detail-label">All-Time High:</div>
+                            <div class="detail-value" id="ath"></div>
+                        </div>
+                        <div class="detail-box">
+                            <div class="detail-label">All-Time Low:</div>
+                            <div class="detail-value" id="atl"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="additional-info">
+                <h3>Useful Links</h3>
+                <div class="crypto-links" id="crypto-links">
+                    </div>
+            </div>
+             <div class="additional-info">
+                <h3>Description</h3>
+                <div class="crypto-description" id="crypto-description">
+                    </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2025 Crypto Dashboard. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+    <script>
+       const urlParams = new URLSearchParams(window.location.search);
+        const cryptoId = urlParams.get('id');
+        const chartContainer = document.getElementById('chart-container');
+        const statsGrid = document.getElementById('stats-grid');
+
+        const chart = LightweightCharts.createChart(chartContainer, {
+            width: chartContainer.clientWidth,
+            height: 500,
+            layout: {
+                backgroundColor: '#05080f',
+                textColor: '#e0e0e0',
+            },
+            grid: {
+                vertLines: { color: 'rgba(87, 217, 163, 0.2)' },
+                horzLines: { color: 'rgba(87, 217, 163, 0.2)' },
+            },
+            crosshair: {
+                mode: LightweightCharts.CrosshairMode.Normal,
+            },
+            timeScale: {
+                timeVisible: true,
+                secondsVisible: false,
+            },
+        });
+
+        // Create a candlestick series
+        const candlestickSeries = chart.addCandlestickSeries({
+            upColor: '#57d9a3',
+            downColor: '#e54d42',
+            borderDownColor: '#e54d42',
+            borderUpColor: '#57d9a3',
+            wickDownColor: '#e54d42',
+            wickUpColor: '#57d9a3',
+        });
+
+        async function fetchCryptoData() {
+            const detailsUrl = `https://api.coingecko.com/api/v3/coins/${cryptoId}?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false`;
+            const historyUrl = `https://api.coingecko.com/api/v3/coins/${cryptoId}/ohlc?vs_currency=usd&days=30`;
+
+            try {
+                const [detailsResponse, historyResponse] = await Promise.all([
+                    fetch(detailsUrl),
+                    fetch(historyUrl)
+                ]);
+
+                const detailsData = await detailsResponse.json();
+                const historyData = await historyResponse.json();
+
+                displayCryptoDetails(detailsData);
+                updateChart(historyData);
+                setInterval(() => updateLivePrice(cryptoId), 10000);
+                displayStats(detailsData.market_data);
+                populateCryptoDetails(detailsData);
+            } catch (error) {
+                console.error('Error fetching crypto data:', error);
+            }
+        }
+
+        function displayCryptoDetails(data) {
+            document.getElementById('crypto-name').textContent = `${data.name} (${data.symbol.toUpperCase()})`;
+            const priceElement = document.getElementById('crypto-price');
+            const priceChange = data.market_data.price_change_percentage_24h;
+            priceElement.innerHTML = `\$${data.market_data.current_price.usd.toFixed(2)} <span class="price-change ${priceChange >= 0 ? 'positive' : 'negative'}">(${priceChange.toFixed(2)}%)</span>`;
+            // Add more details as needed
+        }
+
+        function updateChart(historyData) {
+            // Map OHLC data for candlestick series
+            const chartData = historyData.map(item => {
+                return { time: item[0] / 1000, open: item[1], high: item[2], low: item[3], close: item[4] };
+            });
+
+            candlestickSeries.setData(chartData);
+        }
+
+         function displayStats(marketData) {
+            document.getElementById('market-cap').textContent = marketData.market_cap.usd.toLocaleString();
+            document.getElementById('high-24h').textContent = marketData.high_24h.usd.toFixed(2);
+            document.getElementById('low-24h').textContent = marketData.low_24h.usd.toFixed(2);
+            document.getElementById('circulating-supply').textContent = marketData.circulating_supply.toLocaleString();
+            document.getElementById('total-supply').textContent = marketData.total_supply ? marketData.total_supply.toLocaleString() : 'N/A';
+             document.getElementById('volume-24h').textContent = marketData.total_volume.usd.toLocaleString();
+             document.getElementById('ath').textContent = marketData.ath.usd.toLocaleString();
+             document.getElementById('atl').textContent = marketData.atl.usd.toLocaleString();
+        }
+
+        function populateCryptoDetails(data) {
+            const linksContainer = document.getElementById('crypto-links');
+            const descriptionContainer = document.getElementById('crypto-description');
+            linksContainer.innerHTML = '';
+            descriptionContainer.innerHTML = '';
+        
+            // Add links if available
+            if (data.links) {
+                if (data.links.homepage && data.links.homepage[0]) {
+                    const homepageLink = document.createElement('a');
+                    homepageLink.href = data.links.homepage[0];
+                    homepageLink.textContent = 'Website';
+                    homepageLink.target = '_blank';
+                    linksContainer.appendChild(homepageLink);
+                }
+                if (data.links.blockchain_site && data.links.blockchain_site[0]) {
+                    const blockchainLink = document.createElement('a');
+                    blockchainLink.href = data.links.blockchain_site[0];
+                    blockchainLink.textContent = 'Blockchain';
+                    blockchainLink.target = '_blank';
+                    linksContainer.appendChild(blockchainLink);
+                }
+                // Add more links as needed
+            }
+        
+            // Add description if available
+            if (data.description && data.description.en) {
+                descriptionContainer.innerHTML = data.description.en;
+            } else {
+                descriptionContainer.innerHTML = 'No description available for this cryptocurrency.';
+            }
+        }
+
+        async function updateLivePrice(cryptoId) {
+            const livePriceUrl = `https://api.coingecko.com/api/v3/simple/price?ids=${cryptoId}&vs_currencies=usd&include_market_cap=false&include_24hr_vol=false&include_24hr_change=true&include_last_updated_at=false`;
+
+            try {
+                const response = await fetch(livePriceUrl);
+                const liveData = await response.json();
+
+                const priceElement = document.getElementById('crypto-price');
+                const priceChange = liveData[cryptoId].usd_24h_change;
+                priceElement.innerHTML = `\$${liveData[cryptoId].usd.toFixed(2)} <span class="price-change ${priceChange >= 0 ? 'positive' : 'negative'}">(${priceChange.toFixed(2)}%)</span>`;
+            } catch (error) {
+                console.error('Error fetching live price:', error);
+            }
+        }
+
+        if (cryptoId) {
+            fetchCryptoData();
+        } else {
+            document.getElementById('crypto-name').textContent = 'Crypto ID not found';
+        }
+
+       const cursor = document.getElementById('custom-cursor');
+        let cursorX = 0;
+        let cursorY = 0;
+        let mouseX = 0;
+        let mouseY = 0;
+        const speed = 0.075; // Lower value for slower movement
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function updateCursorPosition() {
+            const distX = mouseX - cursorX;
+            const distY = mouseY - cursorY;
+
+            cursorX += distX * speed;
+            cursorY += distY * speed;
+
+            cursor.style.left = cursorX + 'px';
+            cursor.style.top = cursorY + 'px';
+
+            requestAnimationFrame(updateCursorPosition);
+        }
+        document.addEventListener('mouseover', () => {
+            document.body.classList.add('active-cursor');
+        });
+
+        document.addEventListener('mouseout', () => {
+            document.body.classList.remove('active-cursor');
+        });
+
+        updateCursorPosition();
+    </script>
+</body>
+</html>
