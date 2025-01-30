@@ -1,4 +1,4 @@
-This was made ENTIRELY with AI, I'm trying to hit the limits and see how far AI can go in term of designing, backend is easy to implement but I wanted something really clean here. You can use this with no copyright I won't care, just know it's AI generated :)
+This was made ENTIRELY with AI, I'm trying to hit the limits and see how far AI can go in term of designing, backend is easy to implement but I wanted something really clean here. You can use/clone this with no limits I won't care, just know it's AI generated :)
 
 Limited to : HTML / CSS / JavaScript
 
